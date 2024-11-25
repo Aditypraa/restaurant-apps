@@ -1,16 +1,7 @@
-/* Untuk viewport < 1200px */
-@media screen and (max-width: 1199px) {
-  .jumbroton-wrapper {
-    .image-wrapper {
-      min-width: 100%;
-      height: 320px;
-    }
-  }
-}
-
 @media screen and (max-width: 1280px) {
   .jumbroton-wrapper {
     .image-wrapper {
+      width: 100%;
       min-width: 100%;
       height: 320px;
     }

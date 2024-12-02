@@ -37,4 +37,4 @@ class NavbarComponent extends HTMLElement {
   }
 }
 
-customElements.define("navbar-component", NavbarComponent);
+customElements.define('navbar-component', NavbarComponent);

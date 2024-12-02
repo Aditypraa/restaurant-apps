@@ -3,25 +3,25 @@ class CardItem extends HTMLElement {
   constructor() {
     super();
     this._restaurant = {
-      id: "",
-      pictureId: "",
-      name: "",
-      city: "",
-      rating: "",
-      description: "",
+      id: '',
+      pictureId: '',
+      name: '',
+      city: '',
+      rating: '',
+      description: '',
     };
   }
 
   setValue(value) {
     // Tambahkan validasi data
-    if (value && typeof value === "object") {
+    if (value && typeof value === 'object') {
       this._restaurant = {
-        id: value.id || "",
-        pictureId: value.pictureId || "",
-        name: value.name || "",
-        city: value.city || "",
-        rating: value.rating || "",
-        description: value.description || "",
+        id: value.id || '',
+        pictureId: value.pictureId || '',
+        name: value.name || '',
+        city: value.city || '',
+        rating: value.rating || '',
+        description: value.description || '',
       };
       this.render();
     }
@@ -32,7 +32,7 @@ class CardItem extends HTMLElement {
   }
 
   render() {
-    this.setAttribute("restaurant-id", this._restaurant.id);
+    this.setAttribute('restaurant-id', this._restaurant.id);
 
     this.innerHTML = `
       <div class="card-wrapper">
@@ -50,4 +50,4 @@ class CardItem extends HTMLElement {
   }
 }
 
-customElements.define("card-item", CardItem);
+customElements.define('card-item', CardItem);

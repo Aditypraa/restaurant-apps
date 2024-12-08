@@ -13,7 +13,7 @@ class NavbarComponent extends HTMLElement {
       <nav class="container">
         <div class="navigation-content">
           <img
-            src="./images/logo.png"
+            src="./icons/logo.png"
             alt="Logo Lorem"
             width="50"
             height="50"

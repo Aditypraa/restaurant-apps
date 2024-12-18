@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 
 // Color Variables
-$color-primary: #1f4529;
+$color-primary: #eddfe0;
 $color-secondary: #f5f5f7;
 $color-tertiary: #b7b7b7;
-$color-text: black;
+$color-text: #705c53;
 $color-bg: #ffff;
 
 // Transition Variable
@@ -16,10 +16,7 @@ $transition-all: (
 
 @mixin transition-all {
   transition-property: map-get($transition-all, transition-property);
-  transition-timing-function: map-get(
-    $transition-all,
-    transition-timing-function
-  );
+  transition-timing-function: map-get($transition-all, transition-timing-function);
   transition-duration: map-get($transition-all, transition-duration);
 }
 
@@ -133,4 +130,8 @@ $transition-all: (
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.hidden {
+  display: none;
 }

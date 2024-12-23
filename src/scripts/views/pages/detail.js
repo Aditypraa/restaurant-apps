@@ -1,5 +1,6 @@
 import RestaurantApiSource from '../../data/RestaurantApiSource';
 import UrlParser from '../../routes/url-parser';
+import LikeButtonInitiator from '../../utils/like-button-initiator';
 import { TemplateCreator } from '../template/template-creator';
 
 const Detail = {
@@ -21,6 +22,7 @@ const Detail = {
             <button type="submit" id="submit-review">Kirim</button>
           </form>
      </div>
+     <div id="likeButtonContainer"></div>
         `;
   },
 
@@ -49,6 +51,17 @@ const Detail = {
     });
 
     contentElement.innerHTML += TemplateCreator.DetailRestaurant(response);
+    LikeButtonInitiator.init({
+      likeButtonContainer: document.querySelector('#likeButtonContainer'),
+      restaurant: {
+        id: response.id,
+        pictureId: response.pictureId,
+        name: response.name,
+        city: response.city,
+        rating: response.rating,
+        description: response.description,
+      },
+    });
   },
 };
 

@@ -20,7 +20,7 @@ class NavbarComponent extends HTMLElement {
             </button>
             <div class="navbar-item">
               <a href="/" class="button font-bold">Home</a>
-              <a href="#" class="button font-bold">Favorite</a>
+              <a href="#/favorite" class="button font-bold">Favorite</a>
               <a href="https://www.aditypraa.me" class="button font-bold"
                 >About Us</a
               >

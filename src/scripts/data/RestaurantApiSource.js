@@ -16,7 +16,7 @@ class RestaurantApiSource {
       const response = await fetch(API_ENDPOINT.detailRestaurant + id);
       // console.log(response);
       const result = await response.json();
-      // console.log(result);
+      // console.log('Detail Restaurant', result);
       return result?.restaurant;
     } catch (error) {
       console.log(error);

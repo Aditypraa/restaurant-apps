@@ -29,6 +29,12 @@ const DetailRestaurant = (restaurant) => `
           <div class="details-content-item">
             <p class="details-content-title">Kategori</p>: ${restaurant.categories.map((category) => category.name).join(', ')}
           </div>
+          <div class="details-content-item">
+            <p class="details-content-title">Minuman</p>: ${restaurant.menus.drinks.map((drink) => drink.name).join(', ')}
+          </div>
+          <div class="details-content-item">
+            <p class="details-content-title">Makanan</p>: ${restaurant.menus.foods.map((food) => food.name).join(', ')}
+          </div>
           <p class="details-description">
             ${restaurant.description}
           </p>

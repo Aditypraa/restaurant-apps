@@ -49,19 +49,26 @@ const Detail = {
 
       await RestaurantApiSource.mutateAddReview(data);
     });
-
-    contentElement.innerHTML += TemplateCreator.DetailRestaurant(response);
-    LikeButtonInitiator.init({
-      likeButtonContainer: document.querySelector('#likeButtonContainer'),
-      restaurant: {
-        id: response.id,
-        pictureId: response.pictureId,
-        name: response.name,
-        city: response.city,
-        rating: response.rating,
-        description: response.description,
-      },
-    });
+    try {
+      if (!response) {
+        throw new Error('Failed to fetch restaurant details');
+      }
+      contentElement.innerHTML += TemplateCreator.DetailRestaurant(response);
+      LikeButtonInitiator.init({
+        likeButtonContainer: document.querySelector('#likeButtonContainer'),
+        restaurant: {
+          id: response.id,
+          pictureId: response.pictureId,
+          name: response.name,
+          city: response.city,
+          rating: response.rating,
+          description: response.description,
+        },
+      });
+    } catch (error) {
+      console.log('Testing', error);
+      contentElement.innerHTML = '<p>Tidak dapat menampilkan detail resto.</p>';
+    }
   },
 };
 

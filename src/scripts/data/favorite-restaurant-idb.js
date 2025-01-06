@@ -9,14 +9,20 @@ const dbPromise = openDB(DATABASE_NAME, DATABASE_VERSION, {
   },
 });
 
-const RestaurantsIdb = {
+const FavoriteRestaurantsIdb = {
   async getRestaurant(id) {
+    if (!id) {
+      return;
+    }
     return (await dbPromise).get(OBJECT_STORE_NAME, id);
   },
-  async getAllRestaurant() {
+  async getAllRestaurants() {
     return (await dbPromise).getAll(OBJECT_STORE_NAME);
   },
   async putRestaurant(restaurants) {
+    if (!restaurants.id) {
+      return;
+    }
     return (await dbPromise).put(OBJECT_STORE_NAME, restaurants);
   },
   async deleteRestaurant(id) {
@@ -24,4 +30,4 @@ const RestaurantsIdb = {
   },
 };
 
-export default RestaurantsIdb;
+export default FavoriteRestaurantsIdb;

@@ -1,4 +1,4 @@
-import RestaurantsIdb from '../../data/favorite-restaurant-idb';
+import FavoriteRestaurantsIdb from '../../data/favorite-restaurant-idb';
 import { TemplateCreator } from '../template/template-creator';
 
 const Favorite = {
@@ -13,7 +13,7 @@ const Favorite = {
   },
 
   async afterRender() {
-    const restaurantApi = await RestaurantsIdb.getAllRestaurant();
+    const restaurantApi = await FavoriteRestaurantsIdb.getAllRestaurant();
     const restaurantContainer = document.querySelector('#card-list');
     const loader = document.querySelector('loader-component');
 

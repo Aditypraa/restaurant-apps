@@ -13,7 +13,7 @@ const Favorite = {
   },
 
   async afterRender() {
-    const restaurantApi = await FavoriteRestaurantsIdb.getAllRestaurant();
+    const restaurantApi = await FavoriteRestaurantsIdb.getAllRestaurants();
     const restaurantContainer = document.querySelector('#card-list');
     const loader = document.querySelector('loader-component');
 

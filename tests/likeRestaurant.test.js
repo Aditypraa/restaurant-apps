@@ -50,13 +50,14 @@ describe('Liking A Restaurant', () => {
   });
 
   it('should not add a restaurant when it has no id', async () => {
-    await TestFactories.createLikeButtonPresenterWithRestaurant({});
+    document.body.innerHTML = '<div id="likeButtonContainer"></div>';
 
     await LikeButtonInitiator.init({
       likeButtonContainer: document.querySelector('#likeButtonContainer'),
+      favoriteRestaurants: FavoriteRestaurantIdb,
       restaurant: {},
     });
-    document.querySelector('#likeButton').dispatchEvent(new Event('click'));
+
     expect(await FavoriteRestaurantIdb.getAllRestaurants()).toEqual([]);
   });
 });

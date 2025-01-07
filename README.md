@@ -1,3 +1,1 @@
-# Front-End Web Developer Expert - DICODING
-
-## Subbmission 2 Done ✅
+# Dicoding : Front-End Web Developer Expert

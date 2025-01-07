@@ -7,7 +7,10 @@ const Home = {
     return `
          <section class="jumbroton-wrapper">
         <div class="image-wrapper">
-          <img src="./images/heros/hero-image_4.jpg" alt="" />
+          <picture>
+            <source media="(max-width: 600px)" srcset="./images/heros/hero-image_4-small.jpg">
+            <img src="./images/heros/hero-image_4-large.jpg" alt="hero image" />
+          </picture>
           <h1 class="font-bold">Selamat datang di restoku!</h1>
         </div>
       </section>

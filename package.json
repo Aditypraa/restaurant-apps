@@ -34,6 +34,7 @@
     "codeceptjs": "^3.6.10",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.8.1",
+    "css-minimizer-webpack-plugin": "^7.0.0",
     "eslint": "^9.16.0",
     "eslint-config-dicodingacademy": "^0.9.4",
     "fake-indexeddb": "^4.0.2",

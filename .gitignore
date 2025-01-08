@@ -1,3 +1,73 @@
-/node_modules
-/dist/*
-/package-lock.json
+# Node.js dependencies
+node_modules/
+
+# Build directories (Webpack output)
+dist/
+build/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Cache directories
+.cache/
+.temporary/
+.tmp/
+
+# Babel cache
+.babel-cache/
+
+# ESLint and Prettier cache
+.eslintcache
+.prettiercache
+
+# Editor configurations
+.vscode/
+.idea/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Optional npm files
+package-lock.json.backup
+yarn.lock.backup
+
+# Coverage reports (if using testing tools like Jest)
+coverage/
+
+# Test output
+*.test-results
+*.test-coverage
+
+# Temporary files
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# Webpack stats files
+stats.json
+
+# Dependency bundler files
+*.tgz
+
+# IDE-specific files
+*.iml
+
+# Generated documentation
+docs/
+
+# Static hosting output (optional, if using services like Netlify)
+out/
+
+# Images built dynamically
+*.generated.png
+*.generated.svg
+*.generated.jpeg

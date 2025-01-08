@@ -7,7 +7,7 @@ const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const ImageminWebpackPlugin = require('imagemin-webpack-plugin').default;
 const ImageminMozjpeg = require('imagemin-mozjpeg');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-// const ImageminWebpWebpackPlugin = require('imagemin-webp-webpack-plugin');
+const ImageminWebpWebpackPlugin = require('imagemin-webp-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -24,18 +24,21 @@ module.exports = {
         test: /\.s[ac]ss$/i,
         use: [
           {
+            // Inject styles into the DOM
             loader: 'style-loader',
           },
           {
+            // Translates CSS into CommonJS
             loader: 'css-loader',
           },
           {
+            // Compiles Sass to CSS
             loader: 'sass-loader',
           },
         ],
       },
       {
-        test: /\.(png|jpe?g|gif)$/i,
+        test: /\.(png|jpg|webp|gif|svg|mp4)$/,
         use: [
           {
             loader: 'file-loader',
@@ -61,10 +64,10 @@ module.exports = {
         {
           from: path.resolve(__dirname, 'src/public'),
           to: path.resolve(__dirname, 'dist'),
-          globOptions: {
-            // CopyWebpackPlugin mengabaikan berkas yang berada di dalam folder images
-            ignore: ['**/images/**'],
-          },
+          // globOptions: {
+          //   // CopyWebpackPlugin mengabaikan berkas yang berada di dalam folder images
+          //   ignore: ['**/images/**'],
+          // },
         },
       ],
     }),
@@ -87,6 +90,17 @@ module.exports = {
           progressive: true,
         }),
       ],
+    }),
+    new ImageminWebpWebpackPlugin({
+      config: [
+        {
+          test: /\.(jpe?g|png)/,
+          options: {
+            quality: 50,
+          },
+        },
+      ],
+      overrideExtension: true,
     }),
     new BundleAnalyzerPlugin({
       openAnalyzer: false,

@@ -1,9 +1,14 @@
 @media screen and (max-width: 1280px) {
   .jumbroton-wrapper {
     .image-wrapper {
-      min-width: 100%;
-      height: 320px;
+      height: 350px;
     }
+  }
+
+  .card-container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    padding: 0 16px;
   }
 }
 
@@ -23,13 +28,39 @@
   }
 }
 
+@media screen and (max-width: 768px) {
+  .jumbroton-wrapper {
+    .image-wrapper {
+      height: 300px;
+
+      h1 {
+        font-size: 20px;
+        width: 90%;
+        text-align: center;
+        padding: 8px 12px;
+        max-width: 80%;
+      }
+    }
+  }
+
+  .card-container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    padding: 0 12px;
+  }
+}
+
 @media screen and (max-width: 640px) {
   .jumbroton-wrapper {
     .image-wrapper {
-      height: 360px;
+      height: 250px;
+
       h1 {
-        font-size: 16px;
+        font-size: 18px;
         text-align: center;
+        padding: 6px 10px;
+        max-width: 85%;
+        line-height: 1.4;
       }
     }
   }
@@ -44,7 +75,8 @@
 
   .card-container {
     grid-template-columns: repeat(1, minmax(0, 1fr));
-    gap: 8px;
+    gap: 12px;
+    padding: 0 12px;
   }
 
   .card-wrapper {

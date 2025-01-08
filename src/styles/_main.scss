@@ -248,12 +248,17 @@ button {
 .jumbroton-wrapper {
   .image-wrapper {
     position: relative;
-    min-width: 1000px;
     width: 100%;
     height: 400px;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+
+    picture {
+      width: 100%;
+      height: 100%;
+    }
 
     img {
       width: 100%;
@@ -267,8 +272,13 @@ button {
       top: 50%;
       font-size: 24px;
       background-color: $color-secondary;
-      padding: 4px 8px;
+      padding: 8px 16px;
       transform: translate(-50%, -50%);
+      text-align: center;
+      width: auto;
+      max-width: 90%;
+      white-space: normal;
+      border-radius: 4px;
     }
   }
 }

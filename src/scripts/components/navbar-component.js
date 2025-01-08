@@ -8,12 +8,16 @@ class NavbarComponent extends HTMLElement {
          <header class="navigation border-b">
       <nav class="container">
         <div class="navigation-content">
-          <img
-            src="./icons/logo.png"
-            alt="Logo Lorem"
-            width="50"
-            height="50"
-          />
+          <picture>
+            <source type="image/webp" srcset="./images/logo.webp">
+            <source type="image/png" srcset="./images/logo.png">
+            <img
+              src="./images/logo.png"
+              alt="Logo Lorem"
+              width="50"
+              height="50"
+            />
+          </picture>
           <div class="navbar-action">
             <button class="hamburger-menu">
               <i class="fa fa-bars"></i>

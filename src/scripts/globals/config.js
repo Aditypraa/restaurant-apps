@@ -1,6 +1,7 @@
+/* eslint-disable no-undef */
 const CONFIG = {
-  BASE_URL: 'https://restaurant-api.dicoding.dev',
-  BASE_IMAGE_URL: 'https://restaurant-api.dicoding.dev/images/medium/',
+  BASE_URL: process.env.BASE_URL,
+  BASE_IMAGE_URL: process.env.BASE_IMAGE_URL,
   CACHE_NAME: 'RestaurantApps',
   DEFAULT_LANGUAGE: 'en-us',
   DATABASE_NAME: 'restaurant-apps-database',

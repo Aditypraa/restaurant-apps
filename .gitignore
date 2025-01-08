@@ -71,3 +71,5 @@ out/
 *.generated.png
 *.generated.svg
 *.generated.jpeg
+
+.test.env

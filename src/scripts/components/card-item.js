@@ -6,7 +6,7 @@ class CardItem extends HTMLElement {
   render() {
     this.innerHTML = `
       <div class="card-wrapper" id=${this.getAttribute('id')}>
-        <img src="${this.getAttribute('pictureId')}" alt="${this.getAttribute('name')}" />
+        <img class="lazyload" src="${this.getAttribute('pictureId')}" alt="${this.getAttribute('name')}" />
         <div class="card-content">
           <h3><a href="#/detail/${this.getAttribute('href')}"> ${this.getAttribute('name')} </a></h3>
           <p>City: ${this.getAttribute('city')}</p>

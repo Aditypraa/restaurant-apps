@@ -12,6 +12,7 @@ class NavbarComponent extends HTMLElement {
             <source type="image/webp" srcset="./images/logo.webp">
             <source type="image/png" srcset="./images/logo.png">
             <img
+            class="lazyload"
               src="./images/logo.png"
               alt="Logo Lorem"
               width="50"

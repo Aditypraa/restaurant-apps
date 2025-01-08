@@ -1,5 +1,5 @@
 import FavoriteRestaurantsIdb from '../../data/favorite-restaurant-idb';
-import { TemplateCreator } from '../template/template-creator';
+import { RestaurantItem } from '../template/template-creator';
 
 const Favorite = {
   async render() {
@@ -20,7 +20,7 @@ const Favorite = {
     loader.classList.add('hidden');
 
     restaurantApi.forEach((restaurant) => {
-      restaurantContainer.innerHTML += TemplateCreator.RestaurantItem(restaurant);
+      restaurantContainer.innerHTML += RestaurantItem(restaurant);
     });
   },
 };

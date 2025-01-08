@@ -1,7 +1,7 @@
 import RestaurantApiSource from '../../data/RestaurantApiSource';
 import UrlParser from '../../routes/url-parser';
 import LikeButtonInitiator from '../../utils/like-button-initiator';
-import { TemplateCreator } from '../template/template-creator';
+import { DetailRestaurant } from '../template/template-creator';
 import FavoriteRestaurantsIdb from '../../data/favorite-restaurant-idb';
 
 const Detail = {
@@ -54,7 +54,7 @@ const Detail = {
       if (!response) {
         throw new Error('Failed to fetch restaurant details');
       }
-      contentElement.innerHTML += TemplateCreator.DetailRestaurant(response);
+      contentElement.innerHTML += DetailRestaurant(response);
       LikeButtonInitiator.init({
         likeButtonContainer: document.querySelector('#likeButtonContainer'),
         favoriteRestaurants: FavoriteRestaurantsIdb,

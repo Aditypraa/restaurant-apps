@@ -102,6 +102,8 @@ module.exports = {
       ],
       overrideExtension: true,
     }),
+
+    // BundleAnalyzerPlugin
     new BundleAnalyzerPlugin({
       openAnalyzer: false,
       analyzerMode: 'static',

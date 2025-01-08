@@ -1,52 +1,121 @@
 /* eslint-disable no-undef */
 const assert = require('assert');
 
-Feature('Liking Restaurant');
+Feature('Liking Restaurants');
 
-Scenario('Showing empty liked restaurant', ({ I }) => {
+Before(({ I }) => {
   I.amOnPage('/#/favorite');
-  I.see('Belum ada restoran favorit yang ditambahkan :(', 'p');
 });
 
-Scenario('Liking one restaurant', async ({ I }) => {
-  I.amOnPage('/');
-
-  I.waitForElement('.resto_item .resto_content .title a', 2);
-
-  const firstRestaurant = locate('.resto_item .resto_content .title a').first();
-  const firstRestaurantTitle = await I.grabTextFrom(firstRestaurant);
-  I.click(firstRestaurant);
-
-  I.waitForElement('#likeButton');
-  I.click('#likeButton');
-
-  I.amOnPage('/#/favorite');
-  I.waitForElement('.resto_item .resto_content .title h1');
-  const likedRestaurantTitle = await I.grabTextFrom('.resto_item .resto_content .title h1');
-
-  assert.strictEqual(firstRestaurantTitle, likedRestaurantTitle);
+Scenario('showing empty liked restaurants', ({ I }) => {
+  I.see('Favorite', '.font-semibold');
+  I.seeElement('.restaurant-item__not__found');
+  I.see('Tidak ada restaurant untuk ditampilkan', '.restaurant-item__not__found');
 });
 
-Scenario('Unliking one restaurant', async ({ I }) => {
+Scenario('liking one restaurant', async ({ I }) => {
+  I.see('Tidak ada restaurant untuk ditampilkan', '.restaurant-item__not__found');
   I.amOnPage('/');
 
-  I.waitForElement('.resto_item .resto_content .title a', 2);
+  try {
+    // Wait and verify restaurants loaded
+    I.waitForElement('card-item', 30);
+    I.seeElement('card-item');
 
-  const firstRestaurant = locate('.resto_item .resto_content .title a').first();
-  I.click(firstRestaurant);
+    // Get first restaurant info
+    const firstCard = locate('card-item').first();
+    I.waitForElement(firstCard, 10);
 
-  I.waitForElement('#likeButton');
-  I.click('#likeButton');
+    // Get restaurant details from card wrapper
+    const cardWrapper = locate('.card-wrapper').first();
+    const restaurantId = await I.grabAttributeFrom(cardWrapper, 'id');
+    const restaurantName = await I.grabTextFrom(locate('h3 a').first());
+    console.log('Restaurant before liking:', { restaurantId, restaurantName });
 
-  I.amOnPage('/#/favorite');
-  I.waitForElement('.resto_item .resto_content .title a');
+    // Click the restaurant title link
+    I.click(locate('h3 a').first());
 
-  const likedRestaurant = locate('.resto_item .resto_content .title a').first();
-  I.click(likedRestaurant);
+    // Wait for detail page and like button
+    I.waitForElement('#detail-content', 30);
+    I.waitForElement('#likeButtonContainer', 30);
+    I.waitForElement('#likeButton', 30);
 
-  I.waitForElement('#likeButton');
-  I.click('#likeButton');
+    // Click like button and wait for state update
+    I.click('#likeButton');
+    I.wait(2);
 
-  I.amOnPage('/#/favorite');
-  I.see('Belum ada restoran favorit yang ditambahkan :(', 'p');
+    // Go to favorites page
+    I.amOnPage('/#/favorite');
+    I.waitForElement('card-item', 30);
+
+    // Verify restaurant appears in favorites
+    I.dontSee('Tidak ada restaurant untuk ditampilkan');
+
+    // Get liked restaurant details
+    const likedCardWrapper = locate('.card-wrapper').first();
+    const likedId = await I.grabAttributeFrom(likedCardWrapper, 'id');
+    const likedName = await I.grabTextFrom(locate('h3 a').first());
+    console.log('Restaurant after liking:', { likedId, likedName });
+
+    // Verify it's the same restaurant
+    assert.strictEqual(likedId, restaurantId, 'Restaurant IDs should match');
+    assert.strictEqual(likedName.trim(), restaurantName.trim(), 'Restaurant names should match');
+  } catch (error) {
+    console.error('Test failed with error:', error);
+    console.log('Current URL:', await I.grabCurrentUrl());
+    throw error;
+  }
+});
+
+Scenario('unliking one restaurant', async ({ I }) => {
+  I.amOnPage('/');
+
+  try {
+    // Wait and verify restaurants loaded
+    I.waitForElement('card-item', 30);
+    I.seeElement('card-item');
+
+    // Get first restaurant info before liking
+    const firstCard = locate('card-item').first();
+    I.waitForElement(firstCard, 10);
+
+    const cardWrapper = locate('.card-wrapper').first();
+    const restaurantId = await I.grabAttributeFrom(cardWrapper, 'id');
+    const restaurantName = await I.grabTextFrom(locate('h3 a').first());
+    console.log('Restaurant before unliking:', { restaurantId, restaurantName });
+
+    // Like the restaurant first
+    I.click(locate('h3 a').first());
+    I.waitForElement('#likeButton', 30);
+    I.click('#likeButton');
+    I.wait(2);
+
+    // Verify restaurant is in favorites
+    I.amOnPage('/#/favorite');
+    I.waitForElement('card-item', 30);
+    I.dontSee('Tidak ada restaurant untuk ditampilkan');
+
+    // Get restaurant details from favorites
+    const likedCard = locate('card-item').first();
+    const likedName = await I.grabTextFrom(locate('h3 a').first());
+    assert.strictEqual(
+      likedName.trim(),
+      restaurantName.trim(),
+      'Restaurant should be in favorites',
+    );
+
+    // Unlike the restaurant
+    I.click(locate('h3 a').first());
+    I.waitForElement('#likeButton', 30);
+    I.click('#likeButton');
+    I.wait(2);
+
+    // Verify restaurant is removed from favorites
+    I.amOnPage('/#/favorite');
+    I.see('Tidak ada restaurant untuk ditampilkan', '.restaurant-item__not__found');
+  } catch (error) {
+    console.error('Test failed with error:', error);
+    console.log('Current URL:', await I.grabCurrentUrl());
+    throw error;
+  }
 });

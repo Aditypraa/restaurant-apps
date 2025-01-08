@@ -6,7 +6,7 @@ class Footer extends HTMLElement {
   render() {
     this.innerHTML = `
            <footer class="container">
-             <p>&copy; 2024 - Restaurant Apps</p>
+             <p>&copy; 2025 - Restaurant Apps</p>
            </footer>
         `;
   }

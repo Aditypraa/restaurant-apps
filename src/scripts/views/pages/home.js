@@ -1,5 +1,5 @@
 import RestaurantApiSource from '../../data/RestaurantApiSource';
-import { TemplateCreator } from '../template/template-creator';
+import { RestaurantItem } from '../template/template-creator';
 
 const Home = {
   async render() {
@@ -40,7 +40,7 @@ const Home = {
 
     // console.log(data.restaurants);
     response.forEach((restaurant) => {
-      restaurants.innerHTML += TemplateCreator.RestaurantItem(restaurant);
+      restaurants.innerHTML += RestaurantItem(restaurant);
     });
   },
 };

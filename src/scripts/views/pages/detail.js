@@ -1,7 +1,7 @@
 import RestaurantApiSource from '../../data/RestaurantApiSource';
 import UrlParser from '../../routes/url-parser';
 import LikeButtonInitiator from '../../utils/like-button-initiator';
-import { TemplateCreator } from '../template/template-creator';
+import { DetailRestaurant } from '../template/template-creator';
 import FavoriteRestaurantsIdb from '../../data/favorite-restaurant-idb';
 
 const Detail = {
@@ -9,6 +9,7 @@ const Detail = {
     return `
         <div id="detail-content"></div>
         <loader-component></loader-component>
+        <div id="likeButtonContainer" data-testid="likeButtonContainer"></div>
         <div class="details-container">
           <form class="form-review">
             <h1 class="details-subtitle">Tambahkan Ulasanmu</h1>
@@ -23,7 +24,6 @@ const Detail = {
             <button type="submit" id="submit-review">Kirim</button>
           </form>
      </div>
-     <div id="likeButtonContainer"></div>
         `;
   },
 
@@ -36,8 +36,6 @@ const Detail = {
 
     const url = UrlParser.parseActiveUrlWithoutCombiner();
     const response = await RestaurantApiSource.detailRestaurants(url.id);
-
-    loader.classList.add('hidden');
 
     formReview.addEventListener('submit', async (event) => {
       const data = {
@@ -54,8 +52,14 @@ const Detail = {
       if (!response) {
         throw new Error('Failed to fetch restaurant details');
       }
-      contentElement.innerHTML += TemplateCreator.DetailRestaurant(response);
-      LikeButtonInitiator.init({
+
+      // Render content first
+      contentElement.innerHTML = DetailRestaurant(response);
+
+      // Initialize like button after content is rendered
+      loader.classList.add('hidden');
+
+      await LikeButtonInitiator.init({
         likeButtonContainer: document.querySelector('#likeButtonContainer'),
         favoriteRestaurants: FavoriteRestaurantsIdb,
         restaurant: {

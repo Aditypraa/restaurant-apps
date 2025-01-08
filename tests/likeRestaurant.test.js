@@ -60,4 +60,24 @@ describe('Liking A Restaurant', () => {
 
     expect(await FavoriteRestaurantIdb.getAllRestaurants()).toEqual([]);
   });
+
+  it('should be able to show like button when the restaurant has not been liked before', async () => {
+    await TestFactories.createLikeButtonPresenterWithRestaurant({ id: 1 });
+
+    const likeButton = document.querySelector('#likeButton');
+    expect(likeButton).toBeTruthy();
+    expect(likeButton.classList.contains('like')).toBeTruthy();
+  });
+
+  it('should properly handle like button click event', async () => {
+    await TestFactories.createLikeButtonPresenterWithRestaurant({ id: 1 });
+
+    const likeButton = document.querySelector('#likeButton');
+    likeButton.dispatchEvent(new Event('click'));
+
+    const restaurant = await FavoriteRestaurantIdb.getRestaurant(1);
+    expect(restaurant).toEqual({ id: 1 });
+
+    await FavoriteRestaurantIdb.deleteRestaurant(1);
+  });
 });

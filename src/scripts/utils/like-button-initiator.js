@@ -13,18 +13,19 @@ const LikeButtonInitiator = {
   },
 
   async _renderButton() {
-    const { id } = this._restaurant;
+    try {
+      const { id } = this._restaurant;
+      const restaurant = await this._favoriteRestaurants.getRestaurant(id);
 
-    if (await this._isRestaurantExist(id)) {
-      this._renderLiked();
-    } else {
+      if (restaurant) {
+        this._renderLiked();
+      } else {
+        this._renderLike();
+      }
+    } catch (error) {
+      console.error(error);
       this._renderLike();
     }
-  },
-
-  async _isRestaurantExist(id) {
-    const restaurant = await this._favoriteRestaurants.getRestaurant(id);
-    return !!restaurant;
   },
 
   _renderLike() {

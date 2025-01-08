@@ -10,7 +10,12 @@ const RestaurantItem = (restaurant) => `
     city="${restaurant.city || '-'}"
     rating="${restaurant.rating || '-'}"
     description="${restaurant.description || '-'}"
-  ></card-item>
+    data-testid="restaurant-item"
+  >
+    <div class="restaurant-item">
+      <h3 class="restaurant__title">${restaurant.name}</h3>
+    </div>
+  </card-item>
 `;
 
 const DetailRestaurant = (restaurant) => `

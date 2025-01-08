@@ -9,25 +9,37 @@ const dbPromise = openDB(DATABASE_NAME, DATABASE_VERSION, {
   },
 });
 
-const FavoriteRestaurantsIdb = {
+const FavoriteRestaurantIdb = {
   async getRestaurant(id) {
     if (!id) {
       return;
     }
     return (await dbPromise).get(OBJECT_STORE_NAME, id);
   },
+
   async getAllRestaurants() {
     return (await dbPromise).getAll(OBJECT_STORE_NAME);
   },
-  async putRestaurant(restaurants) {
-    if (!restaurants.id) {
+
+  async putRestaurant(restaurant) {
+    if (!restaurant.id) {
       return;
     }
-    return (await dbPromise).put(OBJECT_STORE_NAME, restaurants);
+    // Ensure all required properties are present
+    const newRestaurant = {
+      id: restaurant.id,
+      name: restaurant.name,
+      description: restaurant.description,
+      pictureId: restaurant.pictureId,
+      city: restaurant.city,
+      rating: restaurant.rating,
+    };
+    return (await dbPromise).put(OBJECT_STORE_NAME, newRestaurant);
   },
+
   async deleteRestaurant(id) {
     return (await dbPromise).delete(OBJECT_STORE_NAME, id);
   },
 };
 
-export default FavoriteRestaurantsIdb;
+export default FavoriteRestaurantIdb;

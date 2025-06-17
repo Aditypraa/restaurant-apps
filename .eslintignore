@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+coverage/
+
+# Generated files
+*.min.js
+
+# Webpack configs
+webpack.*.js
+
+# Config files
+eslint.config.mjs
+lint-staged.config.mjs
+
+# Test files (optional)
+# **/*.test.js
+# **/*.spec.js

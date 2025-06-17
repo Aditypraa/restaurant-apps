@@ -4,6 +4,9 @@ on:
   pull_request:
     branches:
       - main
+  push:
+    branches:
+      - main
 
 jobs:
   test:
@@ -11,41 +14,40 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [22.x] # Ganti dengan versi Node.js yang Anda inginkan
+        node-version: [22.x]
+
+    env:
+      CI: true
+      BASE_URL: ${{ secrets.BASE_URL }}
+      BASE_IMAGE_URL: ${{ secrets.BASE_IMAGE_URL }}
 
     steps:
       # Checkout the repository
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      # Setup Node.js dengan versi 22.x
+      # Setup Node.js
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }} # Tentukan versi Node.js yang sesuai
-
-      # Cache Node Modules
-      - name: Cache Node Modules
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
 
       # Install Dependencies
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
 
-      # Run Lint and Prettier
-      - name: Run Lint and Prettier
-        run: npx lint-staged
+      # Run Prettier Check
+      - name: Check Code Formatting
+        run: npm run prettier:check
+
+      # Run ESLint
+      - name: Run Linting
+        run: npm run lint
 
       # Run Tests
-      - name: Run Automated Test
+      - name: Run Unit Tests
         run: npm run test
 
-        # Set environment variables
-        env:
-          CI: true
-          BASE_URL: ${{ secrets.BASE_URL }}
-          BASE_IMAGE_URL: ${{ secrets.BASE_IMAGE_URL }}
+      # Build Project (optional - untuk memastikan build berhasil)
+      - name: Build Project
+        run: npm run build

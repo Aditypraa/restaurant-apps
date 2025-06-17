@@ -6,7 +6,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const ImageminWebpackPlugin = require('imagemin-webpack-plugin').default;
-const ImageminMozjpeg = require('imagemin-mozjpeg');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const ImageminWebpWebpackPlugin = require('imagemin-webp-webpack-plugin');
@@ -21,7 +20,7 @@ module.exports = {
     app: path.resolve(__dirname, 'src/scripts/index.js'),
   },
   output: {
-    filename: '[name].bundle.js',
+    filename: '[name].[contenthash].bundle.js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
   },
@@ -62,20 +61,24 @@ module.exports = {
     splitChunks: {
       chunks: 'all',
       minSize: 20000,
-      maxSize: 70000,
+      maxSize: 244000, // Increased for better chunking
       minChunks: 1,
       maxAsyncRequests: 30,
       maxInitialRequests: 30,
       automaticNameDelimiter: '~',
       enforceSizeThreshold: 50000,
       cacheGroups: {
-        defaultVendors: {
+        vendor: {
           test: /[\\/]node_modules[\\/]/,
-          priority: -10,
+          name: 'vendors',
+          priority: 10,
+          chunks: 'all',
         },
-        default: {
+        common: {
+          name: 'common',
           minChunks: 2,
-          priority: -20,
+          priority: 5,
+          chunks: 'all',
           reuseExistingChunk: true,
         },
       },
@@ -120,12 +123,14 @@ module.exports = {
       ],
     }),
     new ImageminWebpackPlugin({
-      plugins: [
-        ImageminMozjpeg({
-          quality: 50,
-          progressive: true,
-        }),
-      ],
+      test: /\.(jpe?g|png|gif|svg)$/i,
+      pngquant: {
+        quality: '50-70',
+      },
+      mozjpeg: {
+        quality: 50,
+        progressive: true,
+      },
     }),
     new ImageminWebpWebpackPlugin({
       config: [

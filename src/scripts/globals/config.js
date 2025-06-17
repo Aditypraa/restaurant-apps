@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 const CONFIG = {
   BASE_URL: process.env.BASE_URL,
   BASE_IMAGE_URL: process.env.BASE_IMAGE_URL,

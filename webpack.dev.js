@@ -10,11 +10,14 @@ module.exports = merge(common, {
     static: path.resolve(__dirname, 'dist'),
     open: true,
     compress: true,
+    hot: true,
+    liveReload: false, // Disable live reload for better performance
     client: {
       overlay: {
         errors: true,
         warnings: false,
       },
+      logging: 'warn', // Reduce console spam
     },
   },
 });

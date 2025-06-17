@@ -34,11 +34,9 @@ const Home = {
     const loader = document.querySelector('loader-component');
 
     const response = await RestaurantApiSource.listRestaurants();
-    // console.log(response);
 
     loader.classList.add('hidden');
 
-    // console.log(data.restaurants);
     response.forEach((restaurant) => {
       restaurants.innerHTML += RestaurantItem(restaurant);
     });

@@ -65,9 +65,8 @@ const Detail = {
         },
       });
     } catch (error) {
-      console.log('Testing', error);
       contentElement.innerHTML = '<p>Tidak dapat menampilkan detail resto.</p>';
-      ToastService.error('Gagal memuat detail restaurant');
+      ToastService.error(`Gagal memuat detail restaurant ${error}`);
     }
 
     // ✅ Form submission handler - SEKALI SAJA
@@ -119,22 +118,16 @@ const Detail = {
   },
   // ✅ Update HANYA bagian review, bukan seluruh content
   updateReviewsOnly(newReviews) {
-    console.log('🔄 Updating reviews only...', { reviewCount: newReviews?.length });
-
     // Cari container review di dalam content yang sudah ada
     const reviewsContainer = document.querySelector('#detail-content .details-review-wrapper');
-
-    console.log('📍 Reviews container found:', !!reviewsContainer);
 
     if (reviewsContainer && newReviews) {
       // Update hanya bagian reviews
       reviewsContainer.innerHTML = this.generateReviewsHTML(newReviews);
-      console.log('✅ Reviews HTML updated successfully');
 
       // Scroll ke review baru
       setTimeout(() => {
         const allReviews = reviewsContainer.querySelectorAll('.details-review-item');
-        console.log(`📊 Total reviews after update: ${allReviews.length}`);
 
         if (allReviews.length > 0) {
           const lastReview = allReviews[allReviews.length - 1];

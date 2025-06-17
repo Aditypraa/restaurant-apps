@@ -34,7 +34,7 @@ jobs:
 
       # Install Dependencies
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
 
       # Run Prettier Check
       - name: Check Code Formatting

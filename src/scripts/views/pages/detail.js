@@ -8,24 +8,43 @@ import FavoriteRestaurantsIdb from '../../data/favorite-restaurant-idb';
 const Detail = {
   async render() {
     return `
-        <div id="detail-content"></div>
-        <loader-component></loader-component>
-        <div id="likeButtonContainer" data-testid="likeButtonContainer"></div>
-        <div class="details-container">
-          <form class="form-review">
-            <h1 class="details-subtitle">Tambahkan Ulasanmu</h1>
-            <div>
-              <label>Nama</label>
-              <input type="text" name="name" id="name" placeholder="Nama" required />
+      <section class="detail-page">
+        <div class="container">
+          <div id="detail-content" class="detail-content">
+            <loader-component></loader-component>
+          </div>
+          
+          <div id="likeButtonContainer" data-testid="likeButtonContainer"></div>
+          
+          <div class="review-section">
+            <div class="review-form-container">
+              <form class="form-review">
+                <div class="form-header">
+                  <h2 class="form-title font-bold">Bagikan Pengalaman Anda</h2>
+                  <p class="form-subtitle font-regular">Tuliskan review untuk membantu orang lain</p>
+                </div>
+                <div class="form-fields">
+                  <div class="form-field">
+                    <label for="name" class="form-label font-medium">Nama Anda</label>
+                    <input type="text" name="name" id="name" placeholder="Masukkan nama Anda" required class="form-input" />
+                  </div>
+                  <div class="form-field">
+                    <label for="review" class="form-label font-medium">Ulasan Anda</label>
+                    <textarea name="review" id="review" rows="4" placeholder="Ceritakan pengalaman Anda di restoran ini..." required class="form-textarea"></textarea>
+                  </div>
+                  <button type="submit" id="submit-review" class="form-submit-btn">
+                    <span class="btn-text">Kirim Review</span>
+                    <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="m22 2-7 20-4-9-9-4 20-7z"/>
+                    </svg>
+                  </button>
+                </div>
+              </form>
             </div>
-            <div>
-              <label>Ulasan</label>
-              <textarea name="review" id="review" rows="4" placeholder="Ulasan" required></textarea>
-            </div>
-            <button type="submit" id="submit-review">Kirim Review</button>
-          </form>
+          </div>
         </div>
-        `;
+      </section>
+    `;
   },
 
   async afterRender() {
@@ -150,13 +169,13 @@ const Detail = {
   // ✅ Generate HTML untuk reviews saja
   generateReviewsHTML(reviews) {
     if (!reviews || reviews.length === 0) {
-      return '<p>Belum ada ulasan.</p>';
+      return '<p class="no-reviews">Belum ada ulasan.</p>';
     }
 
     return reviews
       .map(
-        (review) => `
-      <div class="details-review-item">
+        (review, index) => `
+      <div class="details-review-item" style="--review-index: ${index}">
         <div class="review-item-header">
           <div class="review-item-user">
             <h4>${review.name}</h4>

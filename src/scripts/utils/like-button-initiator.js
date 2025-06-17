@@ -36,6 +36,9 @@ const LikeButtonInitiator = {
       await this._favoriteRestaurants.putRestaurant(this._restaurant);
       this._renderButton();
     });
+
+    // Adjust tooltip position after render
+    setTimeout(() => this._adjustTooltipPosition(), 10);
   },
 
   _renderLiked() {
@@ -46,6 +49,32 @@ const LikeButtonInitiator = {
       await this._favoriteRestaurants.deleteRestaurant(this._restaurant.id);
       this._renderButton();
     });
+
+    // Adjust tooltip position after render
+    setTimeout(() => this._adjustTooltipPosition(), 10);
+  }, // Add tooltip positioning logic
+  _adjustTooltipPosition() {
+    const likeButton = document.querySelector('#likeButton');
+    const tooltip = likeButton?.querySelector('.like-tooltip');
+
+    if (!likeButton || !tooltip) return;
+
+    // Get button position relative to viewport
+    const buttonRect = likeButton.getBoundingClientRect();
+    const viewportWidth = window.innerWidth;
+
+    // Remove existing positioning classes
+    tooltip.classList.remove('tooltip-left', 'tooltip-bottom');
+
+    // Check if tooltip would overflow right edge
+    if (buttonRect.right > viewportWidth - 100) {
+      tooltip.classList.add('tooltip-left');
+    }
+
+    // Check if tooltip would overflow top edge
+    if (buttonRect.top < 60) {
+      tooltip.classList.add('tooltip-bottom');
+    }
   },
 };
 

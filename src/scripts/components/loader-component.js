@@ -5,10 +5,13 @@ class LoaderComponent extends HTMLElement {
 
   render() {
     this.innerHTML = `
-            <div class="loader-wrapper">
-                <span class="loader"></span>
-            </div>
-        `;
+      <div class="modern-loader-wrapper">
+        <div class="modern-loader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text font-medium">Memuat restoran...</div>
+        </div>
+      </div>
+    `;
   }
 }
 
